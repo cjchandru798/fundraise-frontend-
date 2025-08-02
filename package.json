@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-tooltip": "^1.2.7",
     "axios": "^1.11.0",
     "bootstrap": "^5.3.7",
+    "canvas-confetti": "^1.9.3",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
+    "html-to-image": "^1.11.13",
     "lucide-react": "^0.536.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

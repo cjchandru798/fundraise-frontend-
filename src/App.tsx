@@ -5,6 +5,7 @@ import InternDashboard from './pages/InternDashboard';
 import './index.css';
 import TransactionTable from './pages/TransactionTable';
 import Leaderboard from './pages/Leaderboard';
+import BadgeHistory from './pages/BadgeHistory';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/dashboard" element={<InternDashboard />} />
         <Route path="/transactions" element={<TransactionTable />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/badges" element={<BadgeHistory />} />
       </Routes>
     </Router>
   );
