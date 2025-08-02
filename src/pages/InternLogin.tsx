@@ -23,7 +23,7 @@ export function LoginForm({ onSwitch }: { onSwitch: () => void }) {
   };
 
   return (
-    <form onSubmit={handleLogin} className="space-y-4">
+    <form onSubmit={handleLogin} className="space-y-14">
       <h2 className="text-3xl font-bold text-gray-800 mb-6">Login</h2>
       <InputField label="Email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <InputField label="Password" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
