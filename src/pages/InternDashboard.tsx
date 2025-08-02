@@ -136,7 +136,12 @@ const InternDashboard: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <QuickAction icon={<Trophy className="text-purple-600" />} label="Leaderboard" onClick={() => goTo("/leaderboard")} />
           <QuickAction icon={<BarChartBig className="text-indigo-600" />} label="My Transactions" onClick={() => goTo("/transactions")} />
-          <QuickAction icon={<Globe2 className="text-green-600" />} label="Donate Public" onClick={() => goTo("/donate")} />
+          <QuickAction
+            icon={<Globe2 className="text-green-600" />}
+            label="Donate Public"
+            onClick={() => goTo(`/donate/${dashboardData.referralCode}`)} // <-- FIXED
+          />
+
           <QuickAction icon={<Award className="text-yellow-600" />} label="My Badges" onClick={() => goTo("/badges")} />
         </div>
 

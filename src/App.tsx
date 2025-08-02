@@ -6,7 +6,7 @@ import './index.css';
 import TransactionTable from './pages/TransactionTable';
 import Leaderboard from './pages/Leaderboard';
 import BadgeHistory from './pages/BadgeHistory';
-
+import PublicDonationPage from './pages/PublicDonationPage';
 export default function App() {
   return (
     <Router>
@@ -17,6 +17,7 @@ export default function App() {
         <Route path="/transactions" element={<TransactionTable />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/badges" element={<BadgeHistory />} />
+        <Route path="/donate/:referralCode" element={<PublicDonationPage />} />
       </Routes>
     </Router>
   );
