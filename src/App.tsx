@@ -4,6 +4,7 @@ import AuthPage from './pages/AuthPage';
 import InternDashboard from './pages/InternDashboard';
 import './index.css';
 import TransactionTable from './pages/TransactionTable';
+import Leaderboard from './pages/Leaderboard';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/dashboard" element={<InternDashboard />} />
         <Route path="/transactions" element={<TransactionTable />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </Router>
   );
