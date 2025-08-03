@@ -15,6 +15,7 @@ import AdminManagement from "./components/AdminManagement";
 import AdminAnalytics from "./pages/AdminAnalytics";
 import MilestoneManager from "./pages/MilestoneManager";
 import ExportPanel from "./components/ExportPanel";
+import ResetLeaderboardPanel from "./components/ResetLeaderboardPanel";
 
 export default function App() {
   return (
@@ -84,6 +85,7 @@ export default function App() {
         <Route path="/admin/manage-admins" element={<ProtectedRoute><AdminManagement /></ProtectedRoute>} />
         <Route path="/admin/milestones" element={<ProtectedRoute><MilestoneManager /></ProtectedRoute>} />
         <Route path="/admin/export" element={<ProtectedRoute><ExportPanel /></ProtectedRoute>} />
+        <Route path="/admin/reset-leaderboard" element={<ProtectedRoute><ResetLeaderboardPanel  /></ProtectedRoute>} />
 
 
 
