@@ -44,9 +44,6 @@ const AdminDashboard: React.FC = () => {
       icon: <FileDown className="w-6 h-6 text-yellow-500" />,
       onClick: () => navigate("/admin/export"),
     },
-  ];
-
-  const superAdminCards = [
     {
       title: "Reset Leaderboard",
       desc: "Clear and restart rankings.",
