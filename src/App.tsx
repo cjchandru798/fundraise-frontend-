@@ -9,6 +9,7 @@ import BadgeHistory from './pages/BadgeHistory';
 import PublicDonationPage from './pages/PublicDonationPage';
 import ProtectedRoute from "./components/ProtectedRoute";
 import Announcements from "./pages/Announcements";
+import AdminDashboard from "./pages/AdminDashboard";
 export default function App() {
   return (
     <Router>
@@ -25,6 +26,14 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+                  path="/admin/admin-dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  }
+                />
         <Route
           path="/transactions"
           element={
