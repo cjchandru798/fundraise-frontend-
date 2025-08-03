@@ -8,7 +8,8 @@ import {
   BarChartBig,
   Globe2,
   Trophy,
-  LogOut
+  LogOut,
+  Megaphone,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
@@ -147,7 +148,7 @@ const InternDashboard: React.FC = () => {
         )}
 
         {/* ⚡ Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
           <QuickAction icon={<Trophy className="text-purple-600" />} label="Leaderboard" onClick={() => goTo("/leaderboard")} />
           <QuickAction icon={<BarChartBig className="text-indigo-600" />} label="My Transactions" onClick={() => goTo("/transactions")} />
           <QuickAction
@@ -155,6 +156,7 @@ const InternDashboard: React.FC = () => {
             label="Donate Public"
             onClick={() => goTo(`/donate/${dashboardData.referralCode}`)} // <-- FIXED
           />
+          <QuickAction icon={<Megaphone className="text-red-600" />} label="Announcements" onClick={() => goTo("/announcements")} />
 
           <QuickAction icon={<Award className="text-yellow-600" />} label="My Badges" onClick={() => goTo("/badges")} />
         </div>
