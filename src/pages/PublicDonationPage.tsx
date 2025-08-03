@@ -4,6 +4,7 @@ import { CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
+import axios from "axios";
 
 export default function PublicDonationPage() {
   const { referralCode } = useParams();
@@ -27,13 +28,18 @@ export default function PublicDonationPage() {
     setLoading(true);
 
     try {
-      // Simulated successful donation without real payment
-      await new Promise((res) => setTimeout(res, 1000));
+      const response = await axios.post(`http://localhost:8080/api/donate/${referralCode}`, {
+        donorName: formData.donorName,
+        amount: parseFloat(formData.amount),
+      });
 
+      const msg = response.data?.message || "Thank you for your donation!";
+      console.log("Success:", msg);
       setSuccess(true);
       setFormData({ donorName: "", amount: "" });
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
+    } catch (err: any) {
+      console.error(err);
+      setError("Donation failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -58,7 +64,7 @@ export default function PublicDonationPage() {
         </motion.div>
       </div>
 
-      {/* Right panel (form or thank you) */}
+      {/* Right panel */}
       <div className="flex-1 flex items-center justify-center p-6 sm:p-10">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
           <AnimatePresence mode="wait">
@@ -79,10 +85,10 @@ export default function PublicDonationPage() {
                   Your support helps someone move forward. You’re awesome! 💙
                 </p>
                 <button
-                  onClick={() => navigate("/auth")}
+                  onClick={() => navigate("/")}
                   className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
                 >
-                  Back to Login
+                  Back Home
                 </button>
               </motion.div>
             ) : (
