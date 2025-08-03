@@ -190,8 +190,6 @@ export default function AdminAnalytics() {
             </button>
             <h2 className="text-xl font-bold mb-4 text-blue-700">Intern Details</h2>
             <p><strong>Name:</strong> {selectedIntern.name}</p>
-            <p><strong>Email:</strong> {selectedIntern.email}</p>
-            <p><strong>Phone:</strong> {selectedIntern.phone}</p>
             <p className="mt-2 text-green-600 font-semibold">
               <strong>Total Raised:</strong> ₹{selectedIntern.totalRaised}
             </p>

@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Announcements from "./pages/Announcements";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminInterns from "./pages/AdminInterns";
+import AdminManagement from "./components/AdminManagement";
 import AdminAnalytics from "./pages/AdminAnalytics";
 export default function App() {
   return (
@@ -68,7 +69,17 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+                  path="/leaderboard"
+                  element={
+                    <ProtectedRoute>
+                      <Leaderboard />
+                    </ProtectedRoute>
+                  }
+                />
         <Route path="/announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
+        <Route path="/admin/manage-admins" element={<ProtectedRoute><AdminManagement /></ProtectedRoute>} />
+
 
 
         {/* 🌐 Public Route */}
