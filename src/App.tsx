@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Announcements from "./pages/Announcements";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminInterns from "./pages/AdminInterns";
+import AdminAnalytics from "./pages/AdminAnalytics";
 export default function App() {
   return (
     <Router>
@@ -34,6 +35,14 @@ export default function App() {
                       <AdminDashboard />
                     </ProtectedRoute>
                   }
+                />
+        <Route
+                 path="/admin/analytics"
+                 element={
+                     <ProtectedRoute>
+                        <AdminAnalytics />
+                     </ProtectedRoute>
+                 }
                 />
         <Route
                   path="/admin/interns"
