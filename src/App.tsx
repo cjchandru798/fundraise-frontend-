@@ -14,6 +14,8 @@ import AdminInterns from "./pages/AdminInterns";
 import AdminManagement from "./components/AdminManagement";
 import AdminAnalytics from "./pages/AdminAnalytics";
 import MilestoneManager from "./pages/MilestoneManager";
+import ExportPanel from "./components/ExportPanel";
+
 export default function App() {
   return (
     <Router>
@@ -81,6 +83,7 @@ export default function App() {
         <Route path="/announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
         <Route path="/admin/manage-admins" element={<ProtectedRoute><AdminManagement /></ProtectedRoute>} />
         <Route path="/admin/milestones" element={<ProtectedRoute><MilestoneManager /></ProtectedRoute>} />
+        <Route path="/admin/export" element={<ProtectedRoute><ExportPanel /></ProtectedRoute>} />
 
 
 
