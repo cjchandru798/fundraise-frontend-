@@ -10,6 +10,7 @@ import PublicDonationPage from './pages/PublicDonationPage';
 import ProtectedRoute from "./components/ProtectedRoute";
 import Announcements from "./pages/Announcements";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminInterns from "./pages/AdminInterns";
 export default function App() {
   return (
     <Router>
@@ -34,6 +35,14 @@ export default function App() {
                     </ProtectedRoute>
                   }
                 />
+        <Route
+                  path="/admin/interns"
+                  element={
+                      <ProtectedRoute>
+                        <AdminInterns />
+                      </ProtectedRoute>
+                  }
+              />
         <Route
           path="/transactions"
           element={
