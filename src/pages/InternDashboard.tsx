@@ -8,6 +8,7 @@ import {
   BarChartBig,
   Globe2,
   Trophy,
+  LogOut
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
@@ -89,6 +90,19 @@ const InternDashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-10 flex justify-center">
       <div className="w-full max-w-6xl space-y-8">
+      {/* 🔓 Logout Button */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  window.location.href = "/auth";
+                }}
+                className="flex items-center gap-2 text-red-600 font-semibold text-sm hover:underline"
+              >
+                <LogOut className="w-4 h-4" />
+                Logout
+              </button>
+            </div>
 
         {/* 🔔 Notification Toggle Header */}
         <div className="flex justify-between items-center">

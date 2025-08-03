@@ -7,16 +7,44 @@ import TransactionTable from './pages/TransactionTable';
 import Leaderboard from './pages/Leaderboard';
 import BadgeHistory from './pages/BadgeHistory';
 import PublicDonationPage from './pages/PublicDonationPage';
+import ProtectedRoute from "./components/ProtectedRoute";
+import Announcements from "./pages/Announcements";
 export default function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Navigate to="/auth" />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/dashboard" element={<InternDashboard />} />
-        <Route path="/transactions" element={<TransactionTable />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/badges" element={<BadgeHistory />} />
+
+        {/* ✅ Protected Routes */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <InternDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/transactions"
+          element={
+            <ProtectedRoute>
+              <TransactionTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/badges"
+          element={
+            <ProtectedRoute>
+              <BadgeHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
+
+
+        {/* 🌐 Public Route */}
         <Route path="/donate/:referralCode" element={<PublicDonationPage />} />
       </Routes>
     </Router>
