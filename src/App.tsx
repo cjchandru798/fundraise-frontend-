@@ -1,42 +1,51 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+// src/App.tsx
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import './index.css';
 
 // Intern Pages
-import AuthPage from './pages/AuthPage';
-import InternDashboard from './pages/InternDashboard';
-import TransactionTable from './pages/TransactionTable';
-import Leaderboard from './pages/Leaderboard';
-import BadgeHistory from './pages/BadgeHistory';
-import PublicDonationPage from './pages/PublicDonationPage';
-import Announcements from './pages/Announcements';
+import AuthPage from "./pages/AuthPage";
+import InternDashboard from "./pages/InternDashboard";
+import TransactionTable from "./pages/TransactionTable";
+import Leaderboard from "./pages/Leaderboard";
+import BadgeHistory from "./pages/BadgeHistory";
+import PublicDonationPage from "./pages/PublicDonationPage";
+import Announcements from "./pages/Announcements";
+import LandingPage from "./pages/LandingPage";
+import IntroPage from "./pages/IntroPage";
+
 
 // Admin Pages
-import AdminDashboard from './pages/AdminDashboard';
-import AdminInterns from './pages/AdminInterns';
-import AdminAnalytics from './pages/AdminAnalytics';
-import AdminManagement from './components/AdminManagement';
-import MilestoneManager from './pages/MilestoneManager';
-import ExportPanel from './components/ExportPanel';
-import ResetLeaderboardPanel from './components/ResetLeaderboardPanel';
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminInterns from "./pages/AdminInterns";
+import AdminAnalytics from "./pages/AdminAnalytics";
+import AdminManagement from "./components/AdminManagement";
+import MilestoneManager from "./pages/MilestoneManager";
+import ExportPanel from "./components/ExportPanel";
+import ResetLeaderboardPanel from "./components/ResetLeaderboardPanel";
 
 // Auth & Route Guard
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from "./components/ProtectedRoute";
 
-export default function App() {
+function AnimatedRoutes() {
+  const location = useLocation();
+
   return (
-    <Router>
-      <Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* 🔐 Entry & Auth */}
+        <Route path="/" element={<Navigate to="/intro-page" />} />
+        <Route path="/intro-page" element={<PageWrapper><IntroPage /></PageWrapper>} />
 
-        {/* 🔐 Auth Route */}
-        <Route path="/" element={<Navigate to="/auth" />} />
-        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/landing" element={<PageWrapper><LandingPage /></PageWrapper>} />
+        <Route path="/auth" element={<PageWrapper><AuthPage /></PageWrapper>} />
 
-        {/* 👤 Intern Routes (Protected) */}
+        {/* 👤 Intern Routes */}
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <InternDashboard />
+              <PageWrapper><InternDashboard /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -44,7 +53,7 @@ export default function App() {
           path="/transactions"
           element={
             <ProtectedRoute>
-              <TransactionTable />
+              <PageWrapper><TransactionTable /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -52,7 +61,7 @@ export default function App() {
           path="/badges"
           element={
             <ProtectedRoute>
-              <BadgeHistory />
+              <PageWrapper><BadgeHistory /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -60,7 +69,7 @@ export default function App() {
           path="/leaderboard"
           element={
             <ProtectedRoute>
-              <Leaderboard />
+              <PageWrapper><Leaderboard /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -68,17 +77,17 @@ export default function App() {
           path="/announcements"
           element={
             <ProtectedRoute>
-              <Announcements />
+              <PageWrapper><Announcements /></PageWrapper>
             </ProtectedRoute>
           }
         />
 
-        {/* 🛠️ Admin Routes (Protected) */}
+        {/* 🛠️ Admin Routes */}
         <Route
           path="/admin/admin-dashboard"
           element={
             <ProtectedRoute>
-              <AdminDashboard />
+              <PageWrapper><AdminDashboard /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -86,7 +95,7 @@ export default function App() {
           path="/admin/interns"
           element={
             <ProtectedRoute>
-              <AdminInterns />
+              <PageWrapper><AdminInterns /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -94,7 +103,7 @@ export default function App() {
           path="/admin/analytics"
           element={
             <ProtectedRoute>
-              <AdminAnalytics />
+              <PageWrapper><AdminAnalytics /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -102,7 +111,7 @@ export default function App() {
           path="/admin/manage-admins"
           element={
             <ProtectedRoute>
-              <AdminManagement />
+              <PageWrapper><AdminManagement /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -110,7 +119,7 @@ export default function App() {
           path="/admin/milestones"
           element={
             <ProtectedRoute>
-              <MilestoneManager />
+              <PageWrapper><MilestoneManager /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -118,7 +127,7 @@ export default function App() {
           path="/admin/export"
           element={
             <ProtectedRoute>
-              <ExportPanel />
+              <PageWrapper><ExportPanel /></PageWrapper>
             </ProtectedRoute>
           }
         />
@@ -126,15 +135,40 @@ export default function App() {
           path="/admin/reset-leaderboard"
           element={
             <ProtectedRoute>
-              <ResetLeaderboardPanel />
+              <PageWrapper><ResetLeaderboardPanel /></PageWrapper>
             </ProtectedRoute>
           }
         />
 
         {/* 🌐 Public Donation Route */}
-        <Route path="/donate/:referralCode" element={<PublicDonationPage />} />
-
+        <Route
+          path="/donate/:referralCode"
+          element={<PageWrapper><PublicDonationPage /></PageWrapper>}
+        />
       </Routes>
+    </AnimatePresence>
+  );
+}
+
+// Wrapper for animated page transitions
+function PageWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      className="w-full"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}
+      transition={{ duration: 0.4 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AnimatedRoutes />
     </Router>
   );
 }
