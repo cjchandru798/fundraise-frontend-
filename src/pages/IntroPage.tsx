@@ -30,8 +30,6 @@ export default function IntroPage() {
       <nav className="flex justify-between items-center px-6 py-4 absolute top-0 left-0 right-0 z-50">
         <img src="/src/logo.png" alt="Logo" className="h-10" />
         <div className="space-x-6 font-medium text-sm text-white">
-          <button onClick={() => navigate("/auth")} className="hover:text-green-400">Login / Sign Up</button>
-          <button onClick={() => setShowReferralModal(true)} className="hover:text-green-400">Donate</button>
         </div>
       </nav>
 
