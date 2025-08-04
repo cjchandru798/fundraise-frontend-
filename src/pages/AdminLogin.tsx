@@ -65,17 +65,10 @@ export function AdminLoginForm({ onSwitch }: { onSwitch: () => void }) {
 
       <button
         type="submit"
-        className="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
+        className="w-full py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-blue-600 transition"
       >
         Login
       </button>
-
-      <p
-        onClick={onSwitch}
-        className="text-sm text-blue-600 underline cursor-pointer text-center"
-      >
-        Back to Intern Login
-      </p>
     </form>
   );
 }

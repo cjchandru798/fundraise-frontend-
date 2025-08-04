@@ -62,7 +62,7 @@ export default function AuthPage() {
         <div
           className={`w-1/2 text-white flex flex-col items-center justify-center p-10 transition-all duration-700 ease-in-out ${
             mode === "signup"
-              ? "bg-blue-500 rounded-r-[150px]"
+              ? "bg-green-600 rounded-r-[150px]"
               : mode === "admin"
               ? "bg-green-600 rounded-l-[150px]"
               : "bg-blue-500 rounded-l-[150px]"
@@ -87,7 +87,7 @@ export default function AuthPage() {
           {mode === "signup" && (
             <button
               onClick={() => setMode("login")}
-              className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-500 transition"
+              className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-600 transition-colors duration-300"
             >
               Login
             </button>
@@ -96,13 +96,13 @@ export default function AuthPage() {
             <div className="space-x-4">
               <button
                 onClick={() => setMode("signup")}
-                className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-500 transition"
+                className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-600 transition-colors duration-300"
               >
                 Sign Up
               </button>
               <button
                 onClick={() => setMode("admin")}
-                className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-500 transition"
+                className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-500 transition-colors duration-300"
               >
                 Admin Login
               </button>
@@ -112,13 +112,13 @@ export default function AuthPage() {
             <div className="space-x-4">
               <button
                 onClick={() => setMode("login")}
-                className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-600 transition"
+                className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-600 transition-colors duration-300"
               >
                 Intern Login
               </button>
               <button
                 onClick={() => setMode("signup")}
-                className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-600 transition"
+                className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-600 transition-colors duration-300"
               >
                 Sign Up
               </button>

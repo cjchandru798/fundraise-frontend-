@@ -37,7 +37,7 @@ export function SignupForm({ onSwitch }: { onSwitch: () => void }) {
       <InputField label="College" name="college" value={formData.college} onChange={handleChange} />
       {error && <p className="text-red-500 text-sm">{error}</p>}
       {success && <p className="text-green-600 text-sm">{success}</p>}
-      <button type="submit" className="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">Sign Up</button>
+      <button type="submit" className="w-full py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out">Sign Up</button>
     </form>
   );
 }
