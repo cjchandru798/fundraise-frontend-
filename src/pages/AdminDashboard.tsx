@@ -1,3 +1,4 @@
+// src/pages/AdminDashboard.tsx
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -10,7 +11,6 @@ import {
   Target,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import api from "../api";
 
 interface CardItem {
   title: string;
@@ -26,20 +26,28 @@ const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    const superFlag = localStorage.getItem("isSuperAdmin");
+    const run = () => {
+      const token = localStorage.getItem("adminToken");
+      const superFlag = localStorage.getItem("isSuperAdmin");
 
-    if (!token) return navigate("/auth");
-    setIsSuperAdmin(superFlag === "true");
+      if (!token) {
+        navigate("/auth");
+        return;
+      }
 
-    try {
-      const payload = JSON.parse(
-        atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))
-      );
-      setAdminEmail(payload.sub || payload.email || "Admin");
-    } catch {
-      setAdminEmail("Admin");
-    }
+      setIsSuperAdmin(superFlag === "true");
+
+      try {
+        const payload = JSON.parse(
+          atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))
+        );
+        setAdminEmail(payload.sub || payload.email || "Admin");
+      } catch {
+        setAdminEmail("Admin");
+      }
+    };
+
+    run();
   }, [navigate]);
 
   const cardList: CardItem[] = [

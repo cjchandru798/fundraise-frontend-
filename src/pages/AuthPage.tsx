@@ -1,3 +1,4 @@
+// src/pages/AuthPage.tsx
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LoginForm } from "../pages/InternLogin";
@@ -14,7 +15,8 @@ export default function AuthPage() {
       case "signup":
         return {
           title: "Welcome!",
-          message: "Already part of our mission? Log in to continue your fundraising journey.",
+          message:
+            "Already part of our mission? Log in to continue your fundraising journey.",
           bg: "bg-green-600",
           rounded: "rounded-r-[150px]",
         };
@@ -28,7 +30,8 @@ export default function AuthPage() {
       default:
         return {
           title: "New Here?",
-          message: "Join our platform and start making a difference by helping others through your donations.",
+          message:
+            "Join our platform and start making a difference by helping others through your donations.",
           bg: "bg-blue-500",
           rounded: "rounded-l-[150px]",
         };
@@ -40,7 +43,6 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-blue-100">
       <div className="relative w-full max-w-5xl bg-white shadow-xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
-
         {/* Left Form Section */}
         <div className="w-full md:w-1/2 p-8 md:p-10">
           <AnimatePresence mode="wait">
