@@ -3,7 +3,6 @@ import { Trophy, Search, ChevronsUpDown } from "lucide-react";
 import clsx from "clsx";
 import api from "../api";
 
-// Make fields required
 interface Intern {
   name: string;
   amount: number;
@@ -30,11 +29,11 @@ export default function LeaderboardPage() {
       setLoading(true);
       const res = await api.get<Intern[]>(`/api/leaderboard?filter=${filter}`);
 
-      // Normalize data to guarantee required fields
-      const normalized = res.data.map((intern) => ({
-        name: intern.name ?? "Unknown",
-        amount: intern.amount ?? 0,
-        rank: intern.rank ?? 0,
+      // Normalize data to guarantee name, amount, and rank are defined
+      const normalized = (res.data || []).map((intern, index) => ({
+        name: intern?.name ?? "Unknown",
+        amount: intern?.amount ?? 0,
+        rank: intern?.rank ?? index + 1,
       }));
 
       setInterns(normalized);
@@ -58,7 +57,9 @@ export default function LeaderboardPage() {
       )
       .sort((a, b) => {
         if (sortField === "amount") {
-          return sortOrder === "asc" ? a.amount - b.amount : b.amount - a.amount;
+          return sortOrder === "asc"
+            ? a.amount - b.amount
+            : b.amount - a.amount;
         } else {
           return sortOrder === "asc"
             ? a.name.localeCompare(b.name)
