@@ -3,10 +3,11 @@ import { Trophy, Search, ChevronsUpDown } from "lucide-react";
 import clsx from "clsx";
 import api from "../api";
 
+// Make fields required
 interface Intern {
-  name?: string;
-  amount?: number;
-  rank?: number;
+  name: string;
+  amount: number;
+  rank: number;
 }
 
 const PAGE_SIZE = 10;
@@ -28,7 +29,15 @@ export default function LeaderboardPage() {
     try {
       setLoading(true);
       const res = await api.get<Intern[]>(`/api/leaderboard?filter=${filter}`);
-      setInterns(res.data);
+
+      // Normalize data to guarantee required fields
+      const normalized = res.data.map((intern) => ({
+        name: intern.name ?? "Unknown",
+        amount: intern.amount ?? 0,
+        rank: intern.rank ?? 0,
+      }));
+
+      setInterns(normalized);
       setError("");
     } catch (err) {
       console.error(err);
@@ -45,14 +54,8 @@ export default function LeaderboardPage() {
   useEffect(() => {
     const result = interns
       .filter((intern) =>
-        (intern?.name ?? "").toLowerCase().includes(search.toLowerCase())
+        intern.name.toLowerCase().includes(search.toLowerCase())
       )
-      .map((intern) => ({
-        ...intern,
-        name: intern.name ?? "",
-        amount: intern.amount ?? 0,
-        rank: intern.rank ?? 0,
-      }))
       .sort((a, b) => {
         if (sortField === "amount") {
           return sortOrder === "asc" ? a.amount - b.amount : b.amount - a.amount;
@@ -79,7 +82,7 @@ export default function LeaderboardPage() {
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const pageCount = Math.ceil(filtered.length / PAGE_SIZE);
 
-  const getMedal = (rank?: number) => {
+  const getMedal = (rank: number) => {
     switch (rank) {
       case 1:
         return "🥇";
@@ -88,7 +91,7 @@ export default function LeaderboardPage() {
       case 3:
         return "🥉";
       default:
-        return `#${rank ?? "-"}`;
+        return `#${rank}`;
     }
   };
 
@@ -169,10 +172,10 @@ export default function LeaderboardPage() {
                 {paginated.map((intern, idx) => (
                   <tr key={idx} className="hover:bg-gray-50 transition">
                     <td className="px-4 py-2">{(page - 1) * PAGE_SIZE + idx + 1}</td>
-                    <td className="px-4 py-2 font-bold">{getMedal(intern?.rank)}</td>
-                    <td className="px-4 py-2">{intern?.name || "Unknown"}</td>
+                    <td className="px-4 py-2 font-bold">{getMedal(intern.rank)}</td>
+                    <td className="px-4 py-2">{intern.name}</td>
                     <td className="px-4 py-2 text-green-700 font-medium">
-                      ₹{(intern?.amount || 0).toLocaleString()}
+                      ₹{intern.amount.toLocaleString()}
                     </td>
                   </tr>
                 ))}
