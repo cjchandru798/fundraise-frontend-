@@ -4,9 +4,9 @@ import clsx from "clsx";
 import api from "../api";
 
 interface Intern {
-  name: string;
-  amount?: number; // Optional to avoid undefined errors
-  rank: number;
+  name?: string;
+  amount?: number;
+  rank?: number;
 }
 
 const PAGE_SIZE = 10;
@@ -45,7 +45,7 @@ export default function LeaderboardPage() {
   useEffect(() => {
     const result = interns
       .filter((intern) =>
-        intern.name.toLowerCase().includes(search.toLowerCase())
+        intern?.name?.toLowerCase().includes(search.toLowerCase())
       )
       .sort((a, b) => {
         if (sortField === "amount") {
@@ -54,8 +54,8 @@ export default function LeaderboardPage() {
             : (b.amount ?? 0) - (a.amount ?? 0);
         } else {
           return sortOrder === "asc"
-            ? a.name.localeCompare(b.name)
-            : b.name.localeCompare(a.name);
+            ? (a.name ?? "").localeCompare(b.name ?? "")
+            : (b.name ?? "").localeCompare(a.name ?? "");
         }
       });
 
@@ -75,7 +75,7 @@ export default function LeaderboardPage() {
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const pageCount = Math.ceil(filtered.length / PAGE_SIZE);
 
-  const getMedal = (rank: number) => {
+  const getMedal = (rank?: number) => {
     switch (rank) {
       case 1:
         return "🥇";
@@ -84,7 +84,7 @@ export default function LeaderboardPage() {
       case 3:
         return "🥉";
       default:
-        return `#${rank}`;
+        return `#${rank ?? "-"}`;
     }
   };
 
@@ -165,10 +165,10 @@ export default function LeaderboardPage() {
                 {paginated.map((intern, idx) => (
                   <tr key={idx} className="hover:bg-gray-50 transition">
                     <td className="px-4 py-2">{(page - 1) * PAGE_SIZE + idx + 1}</td>
-                    <td className="px-4 py-2 font-bold">{getMedal(intern.rank)}</td>
-                    <td className="px-4 py-2">{intern.name}</td>
+                    <td className="px-4 py-2 font-bold">{getMedal(intern?.rank)}</td>
+                    <td className="px-4 py-2">{intern?.name ?? "Unknown"}</td>
                     <td className="px-4 py-2 text-green-700 font-medium">
-                      ₹{(intern.amount ?? 0).toLocaleString()}
+                      ₹{(intern?.amount ?? 0).toLocaleString()}
                     </td>
                   </tr>
                 ))}

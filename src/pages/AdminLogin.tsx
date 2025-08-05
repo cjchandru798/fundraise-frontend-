@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import InputField from '../components/InputField';
 import api from '../api';
 
-export function AdminLoginForm() {
+interface AdminLoginProps {
+  onSwitch: () => void; // ✅ Accept the onSwitch prop
+}
+
+export default function AdminLogin({ onSwitch }: AdminLoginProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -74,6 +78,15 @@ export function AdminLoginForm() {
         className="w-full py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-blue-600 transition"
       >
         Login
+      </button>
+
+      {/* ✅ Add a switch button for AuthPage */}
+      <button
+        type="button"
+        onClick={onSwitch}
+        className="w-full py-2 mt-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition"
+      >
+        Back to Intern Login
       </button>
     </form>
   );
