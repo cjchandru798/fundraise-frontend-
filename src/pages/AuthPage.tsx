@@ -1,8 +1,8 @@
 // src/pages/AuthPage.tsx
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LoginForm } from "../pages/InternLogin";
-import { SignupForm } from "../pages/InternSignup";
+import LoginForm from "../pages/InternLogin";
+import SignupForm from "../pages/InternSignup";
 import { AdminLoginForm } from "../pages/AdminLogin";
 
 type Mode = "login" | "signup" | "admin";
