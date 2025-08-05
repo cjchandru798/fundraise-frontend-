@@ -54,7 +54,7 @@ export default function LandingPage() {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
   const handleDonateClick = () => {
-    const code = referralCode.trim() || "INT0BD0FA";
+    const code = referralCode.trim() || "INT6311EB";
     navigate(`/donate/${code}`);
     setShowReferralModal(false);
   };

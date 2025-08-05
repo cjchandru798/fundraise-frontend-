@@ -15,6 +15,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
+import api from '../api';
 
 interface InternDashboardResponse {
   greeting: string;
@@ -49,8 +50,8 @@ const InternDashboard: React.FC = () => {
         const headers = { Authorization: `Bearer ${token}` };
 
         const [dashboardRes, notiRes] = await Promise.all([
-          axios.get("http://localhost:8080/api/intern/dashboard", { headers }),
-          axios.get("http://localhost:8080/api/intern/notifications", { headers }),
+          api.get(`/api/intern/dashboard`, { headers }),
+          api.get(`/api/intern/notifications`, { headers }),
         ]);
 
         setDashboardData(dashboardRes.data);

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import InputField from '../components/InputField';
+import api from '../api';
 
 export function LoginForm({ onSwitch }: { onSwitch: () => void }) {
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ export function LoginForm({ onSwitch }: { onSwitch: () => void }) {
     e.preventDefault();
     setError('');
     try {
-      const res = await axios.post('http://localhost:8080/api/auth/login', { email, password });
+      const res = await api.post(`/api/auth/login`, { email, password });
       localStorage.setItem('token', res.data.token);
       navigate('/dashboard');
     } catch (err) {

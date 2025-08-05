@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Trophy, Search, ChevronsUpDown } from "lucide-react";
 import clsx from "clsx";
+import api from '../api';
 
 interface Intern {
   name: string;
@@ -28,8 +29,8 @@ export default function LeaderboardPage() {
   const fetchLeaderboard = async () => {
     try {
       setLoading(true);
-      const res = await axios.get<Intern[]>(
-        `http://localhost:8080/api/leaderboard?filter=${filter}`
+      const res = await api.get<Intern[]>(
+        `/api/leaderboard?filter=${filter}`
       );
       setInterns(res.data);
       setError("");

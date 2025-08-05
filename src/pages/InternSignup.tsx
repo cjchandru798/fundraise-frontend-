@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import InputField from "../components/InputField";
+import api from '../api';
 
 export function SignupForm({ onSwitch }: { onSwitch: () => void }) {
   const [formData, setFormData] = useState({ name: "", email: "", password: "", city: "", college: "" });
@@ -19,7 +20,7 @@ export function SignupForm({ onSwitch }: { onSwitch: () => void }) {
     setError('');
     setSuccess('');
     try {
-      await axios.post('http://localhost:8080/api/auth/signup', formData);
+      await api.post(`/api/auth/signup`, formData);
       setSuccess('Signup successful!');
       setTimeout(() => navigate('/auth'), 1500);
     } catch (err: any) {

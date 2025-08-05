@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { BarChart2, Users, DollarSign } from 'lucide-react';
+import api from '../api';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
@@ -46,13 +47,13 @@ export default function AdminAnalytics() {
     const fetchAnalytics = async () => {
       try {
         const [topRes, summaryRes, dailyRes] = await Promise.all([
-          axios.get('http://localhost:8080/api/admin/analytics/top', {
+          api.get('/api/admin/analytics/top', {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:8080/api/admin/analytics/summary', {
+          api.get('/admin/analytics/summary', {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:8080/api/admin/analytics/daily', {
+          api.get('/api/admin/analytics/daily', {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

@@ -4,6 +4,7 @@ import { Award } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
+import api from '../api';
 
 interface Badge {
   label: string;
@@ -24,7 +25,7 @@ export default function BadgeHistory() {
       if (!token) return navigate("/auth");
 
       try {
-        const res = await axios.get("http://localhost:8080/api/intern/dashboard", {
+        const res = await api.get(`/api/intern/dashboard`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

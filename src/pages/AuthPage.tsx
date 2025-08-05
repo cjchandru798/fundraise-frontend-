@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LoginForm } from "../pages/InternLogin";
 import { SignupForm } from "../pages/InternSignup";
 import { AdminLoginForm } from "../pages/AdminLogin";
+import api from '../api';
 
 type Mode = "login" | "signup" | "admin";
 

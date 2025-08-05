@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
 import axios from "axios";
+import api from '../api';
 
 export default function PublicDonationPage() {
   const { referralCode } = useParams();
@@ -28,7 +29,7 @@ export default function PublicDonationPage() {
     setLoading(true);
 
     try {
-      const response = await axios.post(`http://localhost:8080/api/donate/${referralCode}`, {
+      const response = await api.post(`/api/donate/${referralCode}`, {
         donorName: formData.donorName,
         amount: parseFloat(formData.amount),
       });

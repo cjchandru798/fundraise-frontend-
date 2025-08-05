@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { School, MapPin, IndianRupee } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import api from '../api';
 
 interface Intern {
   id: number;
@@ -25,8 +26,8 @@ export default function AdminInterns() {
       setLoading(true);
       const token = localStorage.getItem("adminToken");
       const url = city
-        ? `http://localhost:8080/api/admin/interns/filter?city=${encodeURIComponent(city)}`
-        : `http://localhost:8080/api/admin/interns`;
+        ? `/api/admin/interns/filter?city=${encodeURIComponent(city)}`
+        : `/api/admin/interns`;
 
       const res = await axios.get<Intern[]>(url, {
         headers: { Authorization: `Bearer ${token}` },

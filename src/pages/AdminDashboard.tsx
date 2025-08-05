@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { LogOut, User, BarChart3, FileDown, RefreshCw, Shield, Target } from "lucide-react";
 import { motion } from "framer-motion";
+import api from '../api';
 
 const AdminDashboard: React.FC = () => {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);

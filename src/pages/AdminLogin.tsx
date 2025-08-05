@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../components/InputField';
 import axios from 'axios';
-
+import api from '../api';
 export function AdminLoginForm({ onSwitch }: { onSwitch: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +14,7 @@ export function AdminLoginForm({ onSwitch }: { onSwitch: () => void }) {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:8080/api/admin/login', {
+      const res = await api.post('/api/admin/login', {
         email,
         password,
       });

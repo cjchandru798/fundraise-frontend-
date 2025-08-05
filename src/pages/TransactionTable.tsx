@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Search, ChevronsUpDown } from "lucide-react";
 import clsx from "clsx";
+import api from '../api';
 
 interface Transaction {
   donorName: string;
@@ -34,7 +35,7 @@ export default function TransactionTable() {
       if (!token) return navigate('/auth');
 
       try {
-        const res = await axios.get("http://localhost:8080/api/intern/transactions", {
+        const res = await api.get(`/api/intern/transactions`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTransactions(res.data);

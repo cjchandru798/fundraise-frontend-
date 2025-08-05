@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Trash2, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
+import api from '../api';
 
 export default function ResetLeaderboardPanel() {
   const [loading, setLoading] = useState(false);
@@ -16,8 +17,8 @@ export default function ResetLeaderboardPanel() {
 
     setLoading(true);
     try {
-      await axios.post(
-        "http://localhost:8080/api/superadmin/reset-leaderboard",
+      await api.post(
+        '/api/superadmin/reset-leaderboard',
         {},
         {
           headers: {

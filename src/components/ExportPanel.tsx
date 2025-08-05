@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { FileDown, DownloadCloud } from "lucide-react";
 import { motion } from "framer-motion";
+import api from '../api';
 
 export default function ExportPanel() {
   const downloadFile = async (type: "interns" | "donations") => {
@@ -13,7 +14,7 @@ export default function ExportPanel() {
         return;
       }
 
-      const response = await axios.get(`http://localhost:8080/api/admin/export/${type}`, {
+      const response = await api.get(`/api/admin/export/${type}`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: "blob",
       });

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { UserPlus, Trash2, RefreshCcw } from "lucide-react";
+import api from '../api';
 
 interface Admin {
   id: number;
@@ -16,11 +17,9 @@ export default function AdminManagement() {
   const [errorMsg, setErrorMsg] = useState("");
   const token = localStorage.getItem("adminToken");
 
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
-
   const fetchAdmins = async () => {
     try {
-      const res = await axios.get(`${API_BASE}/api/superadmin/all-admins`, {
+      const res = await api.get(`/api/superadmin/all-admins`, {
         headers: { Authorization: `Bearer ${token}` },
         validateStatus: () => true,
       });
@@ -46,7 +45,7 @@ export default function AdminManagement() {
 
   const handleAdd = async () => {
     try {
-      await axios.post(`${API_BASE}/api/superadmin/add-admin`, newAdmin, {
+      await axios.post(`/api/superadmin/add-admin`, newAdmin, {
         headers: { Authorization: `Bearer ${token}` },
         validateStatus: () => true,
       });
@@ -60,7 +59,7 @@ export default function AdminManagement() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`${API_BASE}/api/superadmin/delete-admin/${id}`, {
+      await api.delete(`/api/superadmin/delete-admin/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
         validateStatus: () => true,
       });
@@ -73,7 +72,7 @@ export default function AdminManagement() {
 
   const handleReset = async () => {
     try {
-      await axios.post(`${API_BASE}/api/superadmin/reset-leaderboard`, {}, {
+      await api.post(`/api/superadmin/reset-leaderboard`, {}, {
         headers: { Authorization: `Bearer ${token}` },
         validateStatus: () => true,
       });

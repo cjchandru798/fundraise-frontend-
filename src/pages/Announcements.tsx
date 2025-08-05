@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Megaphone } from "lucide-react";
+import api from '../api';
 
 interface Announcement {
   id: number;
@@ -18,7 +19,7 @@ export default function Announcements() {
     const fetchAnnouncements = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:8080/api/announcements", {
+        const res = await api.get(`/api/announcements`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setAnnouncements(res.data);

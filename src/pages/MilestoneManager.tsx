@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import api from '../api';
 
 interface Milestone {
   id: number;
@@ -20,7 +21,7 @@ export default function MilestoneManager() {
 
   const fetchMilestones = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/superadmin/milestones", {
+      const res = await api.get(`/api/superadmin/milestones`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMilestones(res.data);
@@ -42,8 +43,8 @@ export default function MilestoneManager() {
     }
 
     try {
-      await axios.post(
-        "http://localhost:8080/api/superadmin/milestones",
+      await api.post(
+        `/api/superadmin/milestones`,
         newMilestone,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -57,7 +58,7 @@ export default function MilestoneManager() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/api/superadmin/milestones/${id}`, {
+      await api.delete(`/api/superadmin/milestones/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Milestone deleted");
