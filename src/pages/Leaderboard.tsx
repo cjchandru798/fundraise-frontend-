@@ -4,9 +4,9 @@ import clsx from "clsx";
 import api from "../api";
 
 interface Intern {
-  name?: string;
-  amount?: number;
-  rank?: number;
+  name: string;
+  amount: number;
+  rank: number | null;
 }
 
 const PAGE_SIZE = 10;
@@ -27,8 +27,13 @@ export default function LeaderboardPage() {
   const fetchLeaderboard = async () => {
     try {
       setLoading(true);
-      const res = await api.get<Intern[]>(`/api/leaderboard?filter=${filter}`);
-      setInterns(res.data);
+      const res = await api.get<Partial<Intern>[]>(`/api/leaderboard?filter=${filter}`);
+      const cleaned: Intern[] = res.data.map((intern) => ({
+        name: intern.name ?? "Unknown",
+        amount: intern.amount ?? 0,
+        rank: intern.rank ?? null,
+      }));
+      setInterns(cleaned);
       setError("");
     } catch (err) {
       console.error(err);
@@ -44,20 +49,14 @@ export default function LeaderboardPage() {
 
   useEffect(() => {
     const result = interns
-      .filter((intern) =>
-        ((intern?.name ?? "") as string).toLowerCase().includes(search.toLowerCase())
-      )
+      .filter((intern) => intern.name.toLowerCase().includes(search.toLowerCase()))
       .sort((a, b) => {
         if (sortField === "amount") {
-          const amountA = a.amount ?? 0;
-          const amountB = b.amount ?? 0;
-          return sortOrder === "asc" ? amountA - amountB : amountB - amountA;
+          return sortOrder === "asc" ? a.amount - b.amount : b.amount - a.amount;
         } else {
-          const nameA = (a.name ?? "") as string;
-          const nameB = (b.name ?? "") as string;
           return sortOrder === "asc"
-            ? nameA.localeCompare(nameB)
-            : nameB.localeCompare(nameA);
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name);
         }
       });
 
@@ -77,7 +76,7 @@ export default function LeaderboardPage() {
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const pageCount = Math.ceil(filtered.length / PAGE_SIZE);
 
-  const getMedal = (rank?: number) => {
+  const getMedal = (rank: number | null) => {
     switch (rank) {
       case 1:
         return "🥇";
@@ -167,10 +166,10 @@ export default function LeaderboardPage() {
                 {paginated.map((intern, idx) => (
                   <tr key={idx} className="hover:bg-gray-50 transition">
                     <td className="px-4 py-2">{(page - 1) * PAGE_SIZE + idx + 1}</td>
-                    <td className="px-4 py-2 font-bold">{getMedal(intern?.rank)}</td>
-                    <td className="px-4 py-2">{intern?.name ?? "Unknown"}</td>
+                    <td className="px-4 py-2 font-bold">{getMedal(intern.rank)}</td>
+                    <td className="px-4 py-2">{intern.name}</td>
                     <td className="px-4 py-2 text-green-700 font-medium">
-                      ₹{(intern?.amount ?? 0).toLocaleString()}
+                      ₹{intern.amount.toLocaleString()}
                     </td>
                   </tr>
                 ))}
