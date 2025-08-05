@@ -27,15 +27,13 @@ export default function LeaderboardPage() {
   const fetchLeaderboard = async () => {
     try {
       setLoading(true);
-      const res = await api.get<Intern[]>(`/api/leaderboard?filter=${filter}`);
-
-      // Normalize data to guarantee name, amount, and rank are defined
-      const normalized = (res.data || []).map((intern, index) => ({
-        name: intern?.name ?? "Unknown",
-        amount: intern?.amount ?? 0,
-        rank: intern?.rank ?? index + 1,
+      const res = await api.get<Partial<Intern>[]>(`/api/leaderboard?filter=${filter}`);
+      // Normalize data to avoid undefined
+      const normalized = res.data.map((intern) => ({
+        name: intern.name ?? "Unknown",
+        amount: intern.amount ?? 0,
+        rank: intern.rank ?? 0,
       }));
-
       setInterns(normalized);
       setError("");
     } catch (err) {
@@ -52,14 +50,10 @@ export default function LeaderboardPage() {
 
   useEffect(() => {
     const result = interns
-      .filter((intern) =>
-        intern.name.toLowerCase().includes(search.toLowerCase())
-      )
+      .filter((intern) => intern.name.toLowerCase().includes(search.toLowerCase()))
       .sort((a, b) => {
         if (sortField === "amount") {
-          return sortOrder === "asc"
-            ? a.amount - b.amount
-            : b.amount - a.amount;
+          return sortOrder === "asc" ? a.amount - b.amount : b.amount - a.amount;
         } else {
           return sortOrder === "asc"
             ? a.name.localeCompare(b.name)
