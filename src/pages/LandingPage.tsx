@@ -88,12 +88,12 @@ export default function LandingPage() {
 
   return (
     <div className="relative overflow-x-hidden">
-      {/* Dynamic Background */}
+      {/* Background Image */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={sections[activeSection].image}
+          key={sections[activeSection]?.image}
           className="fixed inset-0 -z-10 bg-cover bg-center transition-opacity duration-1000"
-          style={{ backgroundImage: `url(${sections[activeSection].image})` }}
+          style={{ backgroundImage: `url(${sections[activeSection]?.image})` }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -111,7 +111,7 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Section Cards */}
+      {/* Scroll Sections */}
       <div className="snap-y snap-mandatory h-screen overflow-y-auto">
         {sections.map((section, idx) => (
           <section
@@ -182,7 +182,7 @@ export default function LandingPage() {
         </a>
       </footer>
 
-      {/* Image Modal */}
+      {/* Image Preview Modal */}
       <AnimatePresence>
         {modalImage && (
           <motion.div

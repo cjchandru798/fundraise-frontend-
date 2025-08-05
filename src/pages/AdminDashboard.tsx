@@ -1,6 +1,7 @@
 // src/pages/AdminDashboard.tsx
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { JSX } from "react";
 import {
   LogOut,
   User,
@@ -38,10 +39,12 @@ const AdminDashboard: React.FC = () => {
       setIsSuperAdmin(superFlag === "true");
 
       try {
-        const payload = JSON.parse(
-          atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))
-        );
-        setAdminEmail(payload.sub || payload.email || "Admin");
+        const parts = token.split(".");
+        if (parts.length < 2) throw new Error("Invalid token format");
+
+        const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+        const payload = JSON.parse(atob(base64));
+        setAdminEmail(payload?.sub || payload?.email || "Admin");
       } catch {
         setAdminEmail("Admin");
       }

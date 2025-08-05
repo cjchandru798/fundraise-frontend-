@@ -1,8 +1,7 @@
-// Enhanced LeaderboardPage.tsx with circle pagination and improved UI
 import { useEffect, useState } from "react";
 import { Trophy, Search, ChevronsUpDown } from "lucide-react";
 import clsx from "clsx";
-import api from '../api';
+import api from "../api";
 
 interface Intern {
   name: string;
@@ -28,9 +27,7 @@ export default function LeaderboardPage() {
   const fetchLeaderboard = async () => {
     try {
       setLoading(true);
-      const res = await api.get<Intern[]>(
-        `/api/leaderboard?filter=${filter}`
-      );
+      const res = await api.get<Intern[]>(`/api/leaderboard?filter=${filter}`);
       setInterns(res.data);
       setError("");
     } catch (err) {
@@ -46,19 +43,21 @@ export default function LeaderboardPage() {
   }, [filter]);
 
   useEffect(() => {
-    let result = interns.filter((intern) =>
-      intern.name.toLowerCase().includes(search.toLowerCase())
-    );
-
-    result.sort((a, b) => {
-      if (sortField === "amount") {
-        return sortOrder === "asc" ? a.amount - b.amount : b.amount - a.amount;
-      } else {
-        return sortOrder === "asc"
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
-      }
-    });
+    const result = interns
+      .filter((intern) =>
+        intern.name.toLowerCase().includes(search.toLowerCase())
+      )
+      .sort((a, b) => {
+        if (sortField === "amount") {
+          return sortOrder === "asc"
+            ? a.amount - b.amount
+            : b.amount - a.amount;
+        } else {
+          return sortOrder === "asc"
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name);
+        }
+      });
 
     setFiltered(result);
     setPage(1);
@@ -73,23 +72,26 @@ export default function LeaderboardPage() {
     }
   };
 
-  const paginated = filtered.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
-
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const pageCount = Math.ceil(filtered.length / PAGE_SIZE);
 
   const getMedal = (rank: number) => {
-    if (rank === 1) return "🥇";
-    if (rank === 2) return "🥈";
-    if (rank === 3) return "🥉";
-    return `#${rank}`;
+    switch (rank) {
+      case 1:
+        return "🥇";
+      case 2:
+        return "🥈";
+      case 3:
+        return "🥉";
+      default:
+        return `#${rank}`;
+    }
   };
 
   return (
     <div className="min-h-screen px-4 py-10 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="max-w-5xl mx-auto bg-white p-6 rounded-2xl shadow-lg space-y-6">
+        {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <h2 className="text-3xl font-bold text-blue-700 flex items-center gap-2">
             <Trophy className="w-8 h-8 text-yellow-500" />
@@ -114,6 +116,7 @@ export default function LeaderboardPage() {
           </div>
         </div>
 
+        {/* Search & Sort */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="relative">
             <Search className="absolute left-2 top-2.5 w-4 h-4 text-gray-400" />
@@ -122,7 +125,7 @@ export default function LeaderboardPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by name..."
-              className="pl-8 pr-4 py-2 rounded border border-gray-300 text-sm"
+              className="pl-8 pr-4 py-2 rounded border border-gray-300 text-sm w-64"
             />
           </div>
 
@@ -142,6 +145,7 @@ export default function LeaderboardPage() {
           </div>
         </div>
 
+        {/* Table */}
         {loading ? (
           <p className="text-center text-gray-500 py-10">Loading leaderboard...</p>
         ) : error ? (
