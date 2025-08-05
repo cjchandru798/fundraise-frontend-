@@ -53,9 +53,11 @@ export default function LeaderboardPage() {
             ? (a.amount ?? 0) - (b.amount ?? 0)
             : (b.amount ?? 0) - (a.amount ?? 0);
         } else {
+          const nameA = (a.name ?? "") as string;
+          const nameB = (b.name ?? "") as string;
           return sortOrder === "asc"
-            ? String(a.name ?? "").localeCompare(String(b.name ?? ""))
-            : String(b.name ?? "").localeCompare(String(a.name ?? ""));
+            ? nameA.localeCompare(nameB)
+            : nameB.localeCompare(nameA);
         }
       });
 
