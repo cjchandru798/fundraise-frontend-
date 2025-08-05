@@ -17,9 +17,11 @@ export default function LeaderboardPage() {
   const [filtered, setFiltered] = useState<Intern[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
   const [search, setSearch] = useState("");
   const [sortField, setSortField] = useState<"name" | "amount">("amount");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
   const [page, setPage] = useState(1);
 
   const fetchLeaderboard = async () => {
@@ -45,18 +47,19 @@ export default function LeaderboardPage() {
       .filter((intern) =>
         (intern?.name ?? "").toLowerCase().includes(search.toLowerCase())
       )
+      .map((intern) => ({
+        ...intern,
+        name: intern.name ?? "",
+        amount: intern.amount ?? 0,
+        rank: intern.rank ?? 0,
+      }))
       .sort((a, b) => {
-        const nameA = a.name ?? "";
-        const nameB = b.name ?? "";
-        const amountA = a.amount ?? 0;
-        const amountB = b.amount ?? 0;
-
         if (sortField === "amount") {
-          return sortOrder === "asc" ? amountA - amountB : amountB - amountA;
+          return sortOrder === "asc" ? a.amount - b.amount : b.amount - a.amount;
         } else {
           return sortOrder === "asc"
-            ? nameA.localeCompare(nameB)
-            : nameB.localeCompare(nameA);
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name);
         }
       });
 
@@ -167,9 +170,9 @@ export default function LeaderboardPage() {
                   <tr key={idx} className="hover:bg-gray-50 transition">
                     <td className="px-4 py-2">{(page - 1) * PAGE_SIZE + idx + 1}</td>
                     <td className="px-4 py-2 font-bold">{getMedal(intern?.rank)}</td>
-                    <td className="px-4 py-2">{intern?.name ?? "Unknown"}</td>
+                    <td className="px-4 py-2">{intern?.name || "Unknown"}</td>
                     <td className="px-4 py-2 text-green-700 font-medium">
-                      ₹{(intern?.amount ?? 0).toLocaleString()}
+                      ₹{(intern?.amount || 0).toLocaleString()}
                     </td>
                   </tr>
                 ))}
