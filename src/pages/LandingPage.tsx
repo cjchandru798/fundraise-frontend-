@@ -51,7 +51,8 @@ export default function LandingPage() {
   const [showReferralModal, setShowReferralModal] = useState(false);
   const [activeSection, setActiveSection] = useState(0);
   const navigate = useNavigate();
-  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+
+  const sectionRefs = useRef<Array<HTMLElement | null>>([]);
 
   const handleDonateClick = () => {
     const code = referralCode.trim() || "INT6311EB";
@@ -71,9 +72,7 @@ export default function LandingPage() {
           }
         });
       },
-      {
-        threshold: 0.6,
-      }
+      { threshold: 0.6 }
     );
 
     sectionRefs.current.forEach((ref) => {
@@ -89,7 +88,7 @@ export default function LandingPage() {
 
   return (
     <div className="relative overflow-x-hidden">
-      {/* Dynamic background */}
+      {/* Dynamic Background */}
       <AnimatePresence mode="wait">
         <motion.div
           key={sections[activeSection].image}
@@ -100,7 +99,6 @@ export default function LandingPage() {
           exit={{ opacity: 0 }}
         />
       </AnimatePresence>
-      {/* Overlay */}
       <div className="fixed inset-0 bg-white/30 backdrop-blur-sm -z-10" />
 
       {/* Navbar */}
@@ -118,7 +116,9 @@ export default function LandingPage() {
         {sections.map((section, idx) => (
           <section
             key={idx}
-            ref={(el) => (sectionRefs.current[idx] = el)}
+            ref={(el) => {
+              sectionRefs.current[idx] = el;
+            }}
             className="snap-start min-h-screen flex items-center justify-center px-6"
           >
             <motion.div
@@ -134,7 +134,9 @@ export default function LandingPage() {
 
                 {section.author && (
                   <div className="space-y-4 mt-6">
-                    <h3 className="text-xl font-bold italic text-green-700">Together, we can make a difference</h3>
+                    <h3 className="text-xl font-bold italic text-green-700">
+                      Together, we can make a difference
+                    </h3>
                     <p className="text-sm italic text-gray-500">— {section.author}</p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                       {founderImages.map((img, i) => (
@@ -180,7 +182,7 @@ export default function LandingPage() {
         </a>
       </footer>
 
-      {/* Image Preview Modal */}
+      {/* Image Modal */}
       <AnimatePresence>
         {modalImage && (
           <motion.div

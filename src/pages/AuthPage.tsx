@@ -1,21 +1,48 @@
-// src/pages/AuthPage.tsx
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LoginForm } from "../pages/InternLogin";
 import { SignupForm } from "../pages/InternSignup";
 import { AdminLoginForm } from "../pages/AdminLogin";
-import api from '../api';
 
 type Mode = "login" | "signup" | "admin";
 
 export default function AuthPage() {
   const [mode, setMode] = useState<Mode>("login");
 
+  const getPanelContent = () => {
+    switch (mode) {
+      case "signup":
+        return {
+          title: "Welcome!",
+          message: "Already part of our mission? Log in to continue your fundraising journey.",
+          bg: "bg-green-600",
+          rounded: "rounded-r-[150px]",
+        };
+      case "admin":
+        return {
+          title: "Intern or Donor?",
+          message: "Admin managing the platform? Log in securely.",
+          bg: "bg-green-600",
+          rounded: "rounded-l-[150px]",
+        };
+      default:
+        return {
+          title: "New Here?",
+          message: "Join our platform and start making a difference by helping others through your donations.",
+          bg: "bg-blue-500",
+          rounded: "rounded-l-[150px]",
+        };
+    }
+  };
+
+  const panel = getPanelContent();
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-blue-100">
-      <div className="relative w-full max-w-5xl bg-white shadow-xl rounded-3xl overflow-hidden flex">
-        {/* Left Form Container */}
-        <div className="w-1/2 p-10">
+      <div className="relative w-full max-w-5xl bg-white shadow-xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
+
+        {/* Left Form Section */}
+        <div className="w-full md:w-1/2 p-8 md:p-10">
           <AnimatePresence mode="wait">
             {mode === "login" && (
               <motion.div
@@ -61,28 +88,10 @@ export default function AuthPage() {
 
         {/* Right Info Panel */}
         <div
-          className={`w-1/2 text-white flex flex-col items-center justify-center p-10 transition-all duration-700 ease-in-out ${
-            mode === "signup"
-              ? "bg-green-600 rounded-r-[150px]"
-              : mode === "admin"
-              ? "bg-green-600 rounded-l-[150px]"
-              : "bg-blue-500 rounded-l-[150px]"
-          }`}
+          className={`w-full md:w-1/2 text-white flex flex-col items-center justify-center p-10 transition-all duration-700 ease-in-out ${panel.bg} ${panel.rounded}`}
         >
-          <h2 className="text-3xl font-bold mb-4">
-            {mode === "signup"
-              ? "Welcome!"
-              : mode === "admin"
-              ? "Intern or Donor?"
-              : "New Here?"}
-          </h2>
-          <p className="text-md mb-6 text-center">
-            {mode === "signup"
-              ? "Already part of our mission? Log in to continue your fundraising journey."
-              : mode === "admin"
-              ? "Admin managing the platform? Log in securely."
-              : "Join our platform and start making a difference by helping others through your donations."}
-          </p>
+          <h2 className="text-3xl font-bold mb-4">{panel.title}</h2>
+          <p className="text-md mb-6 text-center">{panel.message}</p>
 
           {/* Toggle Buttons */}
           {mode === "signup" && (
@@ -93,6 +102,7 @@ export default function AuthPage() {
               Login
             </button>
           )}
+
           {mode === "login" && (
             <div className="space-x-4">
               <button
@@ -109,6 +119,7 @@ export default function AuthPage() {
               </button>
             </div>
           )}
+
           {mode === "admin" && (
             <div className="space-x-4">
               <button
