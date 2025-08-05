@@ -54,8 +54,8 @@ export default function LeaderboardPage() {
             : (b.amount ?? 0) - (a.amount ?? 0);
         } else {
           return sortOrder === "asc"
-            ? (a.name ?? "").localeCompare(b.name ?? "")
-            : (b.name ?? "").localeCompare(a.name ?? "");
+            ? String(a.name ?? "").localeCompare(String(b.name ?? ""))
+            : String(b.name ?? "").localeCompare(String(a.name ?? ""));
         }
       });
 
