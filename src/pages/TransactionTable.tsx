@@ -1,10 +1,9 @@
 // src/pages/TransactionTable.tsx
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Search, ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 import clsx from "clsx";
-import api from '../api';
+import api from "../api";
 
 interface Transaction {
   donorName: string;
@@ -20,7 +19,6 @@ export default function TransactionTable() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [search, setSearch] = useState("");
-  const [month, setMonth] = useState("");
   const [minAmount, setMinAmount] = useState(0);
   const [maxAmount, setMaxAmount] = useState(Infinity);
   const [sortField, setSortField] = useState<"name" | "amount" | "date">("date");
@@ -31,8 +29,8 @@ export default function TransactionTable() {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) return navigate('/auth');
+      const token = localStorage.getItem("token");
+      if (!token) return navigate("/auth");
 
       try {
         const res = await api.get(`/api/intern/transactions`, {
@@ -51,11 +49,9 @@ export default function TransactionTable() {
 
   useEffect(() => {
     let filteredTxns = transactions.filter((txn) => {
-      const date = new Date(txn.date);
-      const matchesMonth = !month || date.toISOString().slice(0, 7) === month;
       const inRange = txn.amount >= minAmount && txn.amount <= maxAmount;
       const matchesSearch = txn.donorName?.toLowerCase().includes(search.toLowerCase());
-      return matchesMonth && inRange && matchesSearch;
+      return inRange && matchesSearch;
     });
 
     filteredTxns.sort((a, b) => {
@@ -68,7 +64,7 @@ export default function TransactionTable() {
 
     setFiltered(filteredTxns);
     setPage(1);
-  }, [transactions, search, month, minAmount, maxAmount, sortField, sortOrder]);
+  }, [transactions, search, minAmount, maxAmount, sortField, sortOrder]);
 
   const toggleSort = (field: "name" | "amount" | "date") => {
     if (sortField === field) {
@@ -88,7 +84,6 @@ export default function TransactionTable() {
         <h2 className="text-3xl font-bold text-blue-700">Your Donation History</h2>
 
         <div className="flex flex-wrap gap-4 items-center">
-
           <input
             type="number"
             placeholder="Min Amount"
@@ -123,7 +118,6 @@ export default function TransactionTable() {
           >
             Amount <ChevronsUpDown className="w-4 h-4" />
           </button>
-
         </div>
 
         {loading ? (

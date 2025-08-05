@@ -1,8 +1,10 @@
+// src/pages/AdminLogin.tsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../components/InputField';
 import api from '../api';
-export function AdminLoginForm({ onSwitch }: { onSwitch: () => void }) {
+
+export function AdminLoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -18,18 +20,23 @@ export function AdminLoginForm({ onSwitch }: { onSwitch: () => void }) {
         password,
       });
 
-      const token = res.data; // raw string
+      const token = res.data; // raw JWT string
       if (!token || typeof token !== 'string') {
         setError('No token received from server.');
         return;
       }
 
-      // Decode JWT to get isSuperAdmin (assuming it's in payload)
       const payloadBase64 = token.split('.')[1];
-      const payloadJson = JSON.parse(atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/')));
+      if (!payloadBase64) {
+        console.error("JWT token missing payload.");
+        return;
+      }
+
+      const payloadJson = JSON.parse(
+        atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/'))
+      );
       const isSuperAdmin = payloadJson?.isSuperAdmin || payloadJson?.super_admin || false;
 
-      // Save to localStorage
       localStorage.setItem('adminToken', token);
       localStorage.setItem('isSuperAdmin', String(isSuperAdmin));
 

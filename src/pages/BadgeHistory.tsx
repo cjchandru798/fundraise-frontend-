@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { Award } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { motion } from "framer-motion";
 import api from '../api';
 
@@ -15,7 +14,6 @@ interface Badge {
 
 export default function BadgeHistory() {
   const [badges, setBadges] = useState<Badge[]>([]);
-  const [currentAmount, setCurrentAmount] = useState(0);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -28,8 +26,6 @@ export default function BadgeHistory() {
         const res = await api.get(`/api/intern/dashboard`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        setCurrentAmount(res.data.totalAmountRaised);
 
         const milestones: Badge[] = [
           { label: "Bronze", icon: "🥉", amount: 500, reached: res.data.totalAmountRaised >= 500 },

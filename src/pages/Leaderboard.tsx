@@ -5,7 +5,7 @@ import api from "../api";
 
 interface Intern {
   name: string;
-  amount: number;
+  amount?: number;  // made optional to match the fix
   rank: number;
 }
 
@@ -50,8 +50,8 @@ export default function LeaderboardPage() {
       .sort((a, b) => {
         if (sortField === "amount") {
           return sortOrder === "asc"
-            ? a.amount - b.amount
-            : b.amount - a.amount;
+            ? (a.amount ?? 0) - (b.amount ?? 0)
+            : (b.amount ?? 0) - (a.amount ?? 0);
         } else {
           return sortOrder === "asc"
             ? a.name.localeCompare(b.name)
@@ -168,7 +168,7 @@ export default function LeaderboardPage() {
                     <td className="px-4 py-2 font-bold">{getMedal(intern.rank)}</td>
                     <td className="px-4 py-2">{intern.name}</td>
                     <td className="px-4 py-2 text-green-700 font-medium">
-                      ₹{intern.amount.toLocaleString()}
+                      ₹{intern.amount?.toLocaleString() ?? 0}
                     </td>
                   </tr>
                 ))}
@@ -177,7 +177,7 @@ export default function LeaderboardPage() {
           </div>
         )}
 
-        {/* Circle Pagination */}
+        {/* Pagination */}
         {pageCount > 1 && (
           <div className="flex justify-center mt-6 gap-2">
             {Array.from({ length: pageCount }, (_, i) => i + 1).map((p) => (

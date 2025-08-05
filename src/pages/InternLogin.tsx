@@ -1,3 +1,4 @@
+// src/components/LoginForm.tsx (or InternLogin.tsx)
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../components/InputField';
@@ -5,10 +6,10 @@ import api from '../api';
 
 interface LoginFormProps {
   onSwitch: () => void;
-  onAdminSwitch: () => void;
+  onAdminSwitch: () => void; // ✅ This line fixes the prop mismatch
 }
 
-export function LoginForm({ onSwitch, onAdminSwitch }: LoginFormProps) {
+export default function LoginForm({ onSwitch, onAdminSwitch }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
