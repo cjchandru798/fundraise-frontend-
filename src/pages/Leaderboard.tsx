@@ -5,7 +5,7 @@ import api from "../api";
 
 interface Intern {
   name: string;
-  amount?: number;  // made optional to match the fix
+  amount?: number; // Optional to avoid undefined errors
   rank: number;
 }
 
@@ -168,7 +168,7 @@ export default function LeaderboardPage() {
                     <td className="px-4 py-2 font-bold">{getMedal(intern.rank)}</td>
                     <td className="px-4 py-2">{intern.name}</td>
                     <td className="px-4 py-2 text-green-700 font-medium">
-                      ₹{intern.amount?.toLocaleString() ?? 0}
+                      ₹{(intern.amount ?? 0).toLocaleString()}
                     </td>
                   </tr>
                 ))}

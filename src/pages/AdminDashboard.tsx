@@ -39,20 +39,13 @@ const AdminDashboard: React.FC = () => {
       setIsSuperAdmin(superFlag === "true");
 
       try {
-        const parts = token.split(".");
-        if (parts.length < 2) throw new Error("Invalid token format");
+        const payloadBase64 = token?.split?.(".")[1];
+        if (!payloadBase64) throw new Error("Invalid token format");
 
-        const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
-       let payload: { sub?: string; email?: string } | null = null;
-       try {
-         const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
-         payload = JSON.parse(atob(base64));
-       } catch {
-         payload = null;
-       }
+        const decodedPayload = atob(payloadBase64.replace(/-/g, "+").replace(/_/g, "/"));
+        const payload = JSON.parse(decodedPayload) as { sub?: string; email?: string };
 
-       setAdminEmail(payload?.sub || payload?.email || "Admin");
-
+        setAdminEmail(payload?.sub || payload?.email || "Admin");
       } catch {
         setAdminEmail("Admin");
       }
@@ -60,6 +53,7 @@ const AdminDashboard: React.FC = () => {
 
     run();
   }, [navigate]);
+
 
   const cardList: CardItem[] = [
     {
