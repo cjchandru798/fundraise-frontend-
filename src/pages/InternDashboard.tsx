@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   ClipboardCheck,
   UserCircle,
@@ -13,7 +12,6 @@ import {
   Users,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 import api from '../api';
 
