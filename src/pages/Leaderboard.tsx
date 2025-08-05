@@ -45,7 +45,7 @@ export default function LeaderboardPage() {
   useEffect(() => {
     const result = interns
       .filter((intern) =>
-        intern?.name?.toLowerCase().includes(search.toLowerCase())
+        (intern?.name ?? "").toLowerCase().includes(search.toLowerCase())
       )
       .sort((a, b) => {
         if (sortField === "amount") {
