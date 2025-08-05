@@ -1,5 +1,3 @@
-import React from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { FileDown, DownloadCloud } from "lucide-react";
 import { motion } from "framer-motion";

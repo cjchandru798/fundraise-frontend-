@@ -1,6 +1,5 @@
 // Enhanced LeaderboardPage.tsx with circle pagination and improved UI
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { Trophy, Search, ChevronsUpDown } from "lucide-react";
 import clsx from "clsx";
 import api from '../api';

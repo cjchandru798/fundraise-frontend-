@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import  { useState } from "react";
 import toast from "react-hot-toast";
 import { Trash2, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";

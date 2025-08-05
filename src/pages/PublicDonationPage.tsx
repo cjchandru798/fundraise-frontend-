@@ -4,7 +4,6 @@ import { CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
-import axios from "axios";
 import api from '../api';
 
 export default function PublicDonationPage() {

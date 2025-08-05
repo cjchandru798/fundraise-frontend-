@@ -1,22 +1,7 @@
 {
-  "compilerOptions": {
-    "target": "ES2020",                         // JS features to use (ES2020 is good)
-    "lib": ["DOM", "DOM.Iterable", "ES2020"],   // Include browser and ES2020 APIs
-    "module": "ESNext",                         // ESNext modules for modern bundlers like Vite
-    "moduleResolution": "Node",                 // Resolve modules like Node.js
-    "resolveJsonModule": true,                  // Allows importing .json files
-    "esModuleInterop": true,                    // Enables default imports from CommonJS
-    "isolatedModules": true,                    // Ensures each file can be transpiled in isolation (important for Vite)
-    "skipLibCheck": true,                       // Skips type checking of libraries to speed up builds
-    "strict": true,                             // Enables all strict type-checking options
-    "noUnusedLocals": true,                     // Report unused local variables
-    "noUnusedParameters": true,                 // Report unused function parameters
-    "noFallthroughCasesInSwitch": true,         // Prevents bugs in switch statements
-    "jsx": "react-jsx",                         // Use React 17+ JSX transform
-    "allowJs": false,                           // Do not allow .js files
-    "forceConsistentCasingInFileNames": true,   // Avoid case-related bugs in imports
-    "noEmit": true                              // Do not output files (Vite handles that)
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Megaphone } from "lucide-react";
 import api from '../api';
 
@@ -7,7 +6,7 @@ interface Announcement {
   id: number;
   title: string;
   message: string;
-  createdAt: string;
+  timestamp: string;
 }
 
 export default function Announcements() {

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { School, MapPin, IndianRupee } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import api from '../api';
 
 interface Intern {
   id: number;

@@ -1,6 +1,5 @@
 // src/pages/AdminDashboard.tsx
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, User, BarChart3, FileDown, RefreshCw, Shield, Target } from "lucide-react";
 import { motion } from "framer-motion";
