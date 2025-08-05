@@ -45,13 +45,13 @@ export default function LeaderboardPage() {
   useEffect(() => {
     const result = interns
       .filter((intern) =>
-        (intern?.name ?? "").toLowerCase().includes(search.toLowerCase())
+        ((intern?.name ?? "") as string).toLowerCase().includes(search.toLowerCase())
       )
       .sort((a, b) => {
         if (sortField === "amount") {
-          return sortOrder === "asc"
-            ? (a.amount ?? 0) - (b.amount ?? 0)
-            : (b.amount ?? 0) - (a.amount ?? 0);
+          const amountA = a.amount ?? 0;
+          const amountB = b.amount ?? 0;
+          return sortOrder === "asc" ? amountA - amountB : amountB - amountA;
         } else {
           const nameA = (a.name ?? "") as string;
           const nameB = (b.name ?? "") as string;
