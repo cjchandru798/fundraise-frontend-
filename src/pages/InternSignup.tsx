@@ -5,11 +5,11 @@ import InputField from "../components/InputField";
 import api from "../api";
 
 interface SignupFormProps {
-  onSwitchToLogin: () => void;
-  onSwitchToAdmin: () => void;
+  onSwitch: () => void;        // Switch to Login
+  onAdminSwitch: () => void;   // Switch to Admin Login
 }
 
-export default function SignupForm({ onSwitchToLogin, onSwitchToAdmin }: SignupFormProps) {
+export default function InternSignup({ onSwitch, onAdminSwitch }: SignupFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -66,7 +66,7 @@ export default function SignupForm({ onSwitchToLogin, onSwitchToAdmin }: SignupF
       <div className="flex items-center justify-between pt-4 text-sm text-gray-600">
         <button
           type="button"
-          onClick={onSwitchToLogin}
+          onClick={onSwitch}
           className="hover:underline hover:text-blue-600 transition"
         >
           Already have an account? Login
@@ -74,7 +74,7 @@ export default function SignupForm({ onSwitchToLogin, onSwitchToAdmin }: SignupF
 
         <button
           type="button"
-          onClick={onSwitchToAdmin}
+          onClick={onAdminSwitch}
           className="hover:underline hover:text-purple-600 transition"
         >
           Admin Login

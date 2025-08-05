@@ -1,15 +1,15 @@
-// src/components/LoginForm.tsx (or InternLogin.tsx)
+// src/components/InternLogin.tsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../components/InputField';
 import api from '../api';
 
 interface LoginFormProps {
-  onSwitch: () => void;
-  onAdminSwitch: () => void; // ✅ This line fixes the prop mismatch
+  onSwitch: () => void;        // Switch to Signup
+  onAdminSwitch: () => void;   // Switch to Admin Login
 }
 
-export default function LoginForm({ onSwitch, onAdminSwitch }: LoginFormProps) {
+export default function InternLogin({ onSwitch, onAdminSwitch }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -22,7 +22,7 @@ export default function LoginForm({ onSwitch, onAdminSwitch }: LoginFormProps) {
       const res = await api.post('/api/auth/login', { email, password });
       localStorage.setItem('token', res.data.token);
       navigate('/dashboard');
-    } catch (err) {
+    } catch {
       setError('Invalid credentials or server error');
     }
   };
